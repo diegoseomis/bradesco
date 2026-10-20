@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\DB;
 class CityController extends Controller
 {
    public function index(){
-    $cities = DB::select("SELECT ID, name, CountryCode, Population,District  FROM city LIMIT 10");
+    $cities = DB::select("SELECT ID, Name, CountryCode, Population,District  FROM city LIMIT 10");
     return view('cities.index', compact('cities'));
    }
 
    public function byCountry($countryCode){
-      $cities = DB::select('SELECT ID, name, CountryCode, Population, District 
+      $cities = DB::select('SELECT ID, Name, CountryCode, Population, District 
       FROM city 
       WHERE CountryCode = ?', [$countryCode]);
       return view('cities.byCountry', compact('cities', 'countryCode'));
@@ -34,8 +34,24 @@ class CityController extends Controller
           $request->input('District'),
           $request->input('Population')
       ]);
+
+      return redirect('/cities/create');
+          
    }
 
 
+   
+public function destroy($id)
+{
+       $linhas = DB::delete("DELETE FROM city WHERE ID = ?", [$id]);
+
+    if ($linhas === 0) {
+        return redirect('/cities')
+            ->with('error', 'Cidade não encontrada.');
+    }
+
+    return redirect('/cities')
+        ->with('success', 'Cidade excluída com sucesso!');
+}
 
 }

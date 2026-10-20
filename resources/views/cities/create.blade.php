@@ -8,7 +8,7 @@
 <body>
     <h1>Cadastrar cidade!</h1>
 
-    <form action="{{ route('cities.store') }}" method="POST">
+    <form action="{{ url('/cities') }}" method="POST">
         @csrf
         <label>Nome:</label>
         <input type="text" name="Name" placeholder="Digite o nome da cidade">
