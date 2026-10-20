@@ -9,3 +9,8 @@ Route::get('/', function () {
 
 Route::get('/cities',[CityController::class,'index']);
 
+Route::get ('/cities/country/{countryCode}', [CityController::class, 'byCountry']);
+
+Route::get('/cities/create', [CityController::class, 'create']);
+
+Route::post('/cities', [CityController::class, 'store']);
